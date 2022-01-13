@@ -1,5 +1,5 @@
 ### Hi there 👋
-I am trying to create a finicial manager for small scale that is for home budgeting and personal budgeting.
+
 
 <!--
 **tejas12345678/tejas12345678** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
