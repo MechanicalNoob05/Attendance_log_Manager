@@ -4,8 +4,9 @@ import java.awt.*;
 public class GUI{
 	JFrame window;
 	JPanel panel,panel1,panel2,panel3,panel4;
-	JLabel name,Roll,Date,tab3,tab4,D,N,R,Roll1,PArb,ANo;
+	JLabel name,Roll,Date,tab3,tab4,D,N,R,Roll1,PArb,ANo,SELDEP,SELDIV,SELNS;
 	JTabbedPane tp,tp1;
+	JTextField DEPNAME,DEPND,DEPNS;
 	public static void main(String[] args){
 		new GUI();
 	}
@@ -108,8 +109,51 @@ public class GUI{
 		panel1 =new JPanel();
 		panel1.setLayout(null);
 		
+		SELDEP=new JLabel("Select Department Name: ");  
+		SELDEP.setBounds(10,20, 150,30);  
+		panel1.add(SELDEP);
+		DEPNAME=new JTextField("");  
+		DEPNAME.setBounds(170,20, 250,30); 
+		panel1.add(DEPNAME);
+		
+		SELDIV=new JLabel("Select Number of Division: ");  
+		SELDIV.setBounds(10,60, 180,30);  
+		panel1.add(SELDIV);
+		DEPND=new JTextField("");  
+		DEPND.setBounds(170,60, 250,30); 
+		panel1.add(DEPND);
+		
+		SELNS=new JLabel("Select Number of Student: ");  
+		SELNS.setBounds(10,100, 180,30);  
+		panel1.add(SELNS);
+		DEPNS=new JTextField("");  
+		DEPNS.setBounds(170,100, 250,30); 
+		panel1.add(DEPNS);
+		
+		JButton ADS=new JButton("Add Student");  
+		ADS.setBounds(75,140,115,30); 
+		panel1.add(ADS);
+		ADS.addActionListener(new ActionListener(){  
+		public void actionPerformed(ActionEvent e){  
+			JFrame frame = new JFrame("mansi");  
+			frame.setSize(400, 400);
+			
+			JPanel ADSnames=new JPanel();  
+			ADSnames.setBounds(40,80,200,200);  
+			
+			JLabel NTS=new JLabel("Name of the Student");  
+			NTS.setBounds(10, 100, 100 , 30); 
+			ADSnames.add(NTS);
+			
+			frame.add(ADSnames);	
+			frame.setVisible(true);
+			
+        }  
+    }
+	);  
 		tp.add("Add Department",panel1);
 	}
+	
 	public void createPanel2(){
 		panel2 =new JPanel();
 		panel2.setLayout(null);
