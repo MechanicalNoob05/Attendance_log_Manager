@@ -2,11 +2,11 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 public class GUI{
-	JFrame window,frame;
-	JPanel panel,panel1,panel2,panel3,panel4,ADSnames;
-	JLabel name,Roll,Date,tab3,tab4,D,N,R,Roll1,PArb,ANo,SELDEP,SELDIV,SELNS;
+	JFrame window,frame,Viewp;
+	JPanel panel,panel1,panel2,panel3,panel4,ADSnames,HIS;
+	JLabel name,Roll,Date,CHDEP,CHDIV,CHNO,tab4,D,N,R,Roll1,PArb,ANo,SELDEP,SELDIV,SELNS,month1,month2,Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec;
 	JTabbedPane tp,tp1;
-	JTextField DEPNAME,DEPND,DEPNS,EntName;
+	JTextField DEPNAME,DEPND,DEPNS,EntName,RONO;
 	public static void main(String[] args){
 		new GUI();
 	}
@@ -26,6 +26,8 @@ public class GUI{
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame = new JFrame("mansi");
 		frame.setSize(400, 400);
+		Viewp = new JFrame("History");
+		Viewp.setSize(210,210);
 	}
 	public void tabbedPane(){
 		tp=new JTabbedPane();
@@ -143,8 +145,8 @@ public class GUI{
 					frame.setVisible(true);
 
         }
-    }
-	);
+    	}
+	  );
 		tp.add("Add Department",panel1);
 	}
 	public void createADSpanel(){
@@ -177,10 +179,104 @@ public class GUI{
 	public void createPanel2(){
 		panel2 =new JPanel();
 		panel2.setLayout(null);
-		tab3 = new JLabel("Yash darling");
-		tab3.setBounds(10, 60, 80 , 25);
-		panel2.add(tab3);
+		CHDEP = new JLabel("Select Department:");
+		CHDEP.setBounds(10, 20, 200 , 25);
+		panel2.add(CHDEP);
+		String Department[]={"chaman", "bade chaman", "full chaman"};
+		JComboBox cb=new JComboBox(Department);
+    cb.setBounds(180, 20,200,20);
+		panel2.add(cb);
+
+		CHDIV=new JLabel("Select Division: ");
+		CHDIV.setBounds(10,60, 200,30);
+		panel2.add(CHDIV);
+		String Division[]={"chaman", "bade chaman", "full chaman"};
+		JComboBox cb1=new JComboBox(Division);
+    cb1.setBounds(180, 60,200,20);
+		panel2.add(cb1);
+
+		CHNO=new JLabel("Enter Student Roll no.: ");
+		CHNO.setBounds(10,100, 200,30);
+		panel2.add(CHNO);
+
+		RONO=new JTextField("");
+		RONO.setBounds(180,100, 50,30);
+		panel2.add(RONO);
+
+		JButton View =new JButton("View");
+		View.setBounds(210,250,140,30);
+		View.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+					History();
+					Viewp.setVisible(true);
+
+				}
+			}
+		);
+		panel2.add(View);
+
 		tp.add("View History",panel2);
+	}
+	public void History(){
+		HIS=new JPanel();
+		HIS.setLayout(null);
+		HIS.setBounds(10,20,200,200);
+		month1 = new JLabel("Jan  Feb  Mar  Apr  May  Jun");
+		month1.setBounds(10,20,200,25);
+		month2 = new JLabel("Jul  Aug  Sep  Oct  Nov  Dec");
+		month2.setBounds(10,100,200,25);
+		HIS.add(month1);
+		HIS.add(month2);
+
+		Jan = new JLabel("0");
+		Jan.setBounds(10,60,20,25);
+		HIS.add(Jan);
+
+		Feb = new JLabel("0");
+		HIS.add(Feb);
+		Feb.setBounds(40,60,20,25);
+
+		Mar = new JLabel("0");
+		Mar.setBounds(80,60,20,25);
+		HIS.add(Mar);
+
+		Apr = new JLabel("0");
+		Apr.setBounds(110,60,20,25);
+		HIS.add(Apr);
+
+		May = new JLabel("0");
+		May.setBounds(150,60,20,25);
+		HIS.add(May);
+
+		Jun = new JLabel("0");
+		Jun.setBounds(180,60,20,25);
+		HIS.add(Jun);
+
+		Jul = new JLabel("0");
+		Jul.setBounds(10,140,20,25);
+		HIS.add(Jul);
+
+		Aug = new JLabel("0");
+		HIS.add(Aug);
+		Aug.setBounds(40,140,20,25);
+
+		Sep = new JLabel("0");
+		Sep.setBounds(80,140,20,25);
+		HIS.add(Sep);
+
+		Oct = new JLabel("0");
+		Oct.setBounds(110,140,20,25);
+		HIS.add(Oct);
+
+		Nov = new JLabel("0");
+		Nov.setBounds(150,140,20,25);
+		HIS.add(Nov);
+
+		Dec = new JLabel("0");
+		Dec.setBounds(180,140,20,25);
+		HIS.add(Dec);
+
+		Viewp.add(HIS);
 	}
 	public void createPanel3(){
 		panel3 =new JPanel();
