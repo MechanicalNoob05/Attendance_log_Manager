@@ -15,7 +15,7 @@ public class GUI{
 		tabbedPane();
 		createPanel();
 		createPanel4();
-		createPanel1();
+		//createPanel1();
 		createPanel2();
 		createPanel3();
 		window.setVisible(true);
