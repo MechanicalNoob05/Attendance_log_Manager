@@ -13,10 +13,10 @@ public class GUI{
 	public GUI(){
 		createWindow();
 		tabbedPane();
-		createPanel();
-		createPanel4();
-		//createPanel1();
-		createPanel2();
+		Marking_Attendance_panel();
+		Marking_Attendance_panel_2();
+		//Select_department_panel();
+		View_Monthly_panel();
 		createPanel3();
 		window.setVisible(true);
 	}
@@ -26,7 +26,7 @@ public class GUI{
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame = new JFrame("mansi");
 		frame.setSize(400, 400);
-		Viewp = new JFrame("History");
+		Viewp = new JFrame("Monthly_display_box");
 		Viewp.setSize(210,210);
 	}
 	public void tabbedPane(){
@@ -36,7 +36,7 @@ public class GUI{
    	 	tp.setBounds(50,50,200,200);
    	 	window.add(tp);
 	}
-	public void createPanel(){
+	public void Marking_Attendance_panel(){
 		panel =new JPanel();
 		panel.setLayout(null);
 		name = new JLabel("Name:");
@@ -83,9 +83,9 @@ public class GUI{
 		panel.add(Generate);
 		tp1.add("In Series ",panel);
 
-		tp.add("Attendance",tp1);
+		tp.add("Marking_Attendance_panel",tp1);
 	}
-	public void createPanel4(){
+	public void Marking_Attendance_panel_2(){
 		panel4 =new JPanel();
 		panel4.setLayout(null);
 		JRadioButton r1=new JRadioButton("Present");
@@ -93,7 +93,7 @@ public class GUI{
 		r1.setBounds(150,20,100,30);
 		r2.setBounds(250,20,100,30);
 		ButtonGroup bg=new ButtonGroup();
-    bg.add(r1);bg.add(r2);
+	    bg.add(r1);bg.add(r2);
 		PArb =new JLabel("Present/Absent: ");
 		PArb.setBounds(10,20,120,25);
 		ANo = new JLabel("All Roll no. Seperated by '','' :");
@@ -111,7 +111,7 @@ public class GUI{
 		tp1.add("By Preset/Absent",panel4);
 
 	}
-	public void createPanel1(){
+	public void Select_department_panel(){
 		panel1 =new JPanel();
 		panel1.setLayout(null);
 
@@ -141,7 +141,7 @@ public class GUI{
 		panel1.add(ADS);
 		ADS.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-					createADSpanel();
+					Adding_student_panel();
 					frame.setVisible(true);
 
         }
@@ -149,7 +149,7 @@ public class GUI{
 	  );
 		tp.add("Add Department",panel1);
 	}
-	public void createADSpanel(){
+	public void Adding_student_panel(){
 		ADSnames=new JPanel();
 		ADSnames.setLayout(null);
 		ADSnames.setBounds(10,20,200,200);
@@ -176,7 +176,7 @@ public class GUI{
 
 		frame.add(ADSnames);
 	}
-	public void createPanel2(){
+	public void View_Monthly_panel(){
 		panel2 =new JPanel();
 		panel2.setLayout(null);
 		CHDEP = new JLabel("Select Department:");
@@ -207,7 +207,7 @@ public class GUI{
 		View.setBounds(210,250,140,30);
 		View.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-					History();
+					Monthly_display_box();
 					Viewp.setVisible(true);
 
 				}
@@ -217,7 +217,7 @@ public class GUI{
 
 		tp.add("View History",panel2);
 	}
-	public void History(){
+	public void Monthly_display_box(){
 		HIS=new JPanel();
 		HIS.setLayout(null);
 		HIS.setBounds(10,20,200,200);
