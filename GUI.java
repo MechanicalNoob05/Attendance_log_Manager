@@ -2,8 +2,8 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 public class GUI{
-	JFrame window,frame,Viewp;
-	JPanel panel,panel1,panel2,panel3,panel4,ADSnames,HIS;
+	JFrame window,frame,Viewp,Reset_confirm_window;
+	JPanel panel,panel1,panel2,panel3,panel4,ADSnames,HIS,Reset_confirm_window_panel;
 	JLabel name,Roll,Date,CHDEP,CHDIV,CHNO,tab4,D,N,R,Roll1,PArb,ANo,SELDEP,SELDIV,SELNS,month1,month2,Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec;
 	JTabbedPane tp,tp1;
 	JTextField DEPNAME,DEPND,DEPNS,EntName,RONO;
@@ -19,6 +19,7 @@ public class GUI{
 		View_Monthly_panel();
 		createPanel3();
 		window.setVisible(true);
+		Reset_confirm_window_panel();
 	}
 	public void createWindow(){
 		window = new JFrame("Test");
@@ -28,6 +29,8 @@ public class GUI{
 		frame.setSize(400, 400);
 		Viewp = new JFrame("Monthly_display_box");
 		Viewp.setSize(210,210);
+		Reset_confirm_window = new JFrame("Confirmation");
+		Reset_confirm_window.setSize(500,200);
 	}
 	public void tabbedPane(){
 		tp=new JTabbedPane();
@@ -65,6 +68,14 @@ public class GUI{
 		Next.setBounds(365,100,100,25);
 		JButton Reset = new JButton("Reset");
 		Reset.setBounds(10,200,100,25);
+		Reset.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+					Reset_confirm_window_panel();
+					Reset_confirm_window.setVisible(true);
+
+        }
+    	}
+	  );
 		JButton Generate = new JButton("Create");
 		Generate.setBounds(365,200,100,25);
 		panel.add(name);
@@ -84,6 +95,19 @@ public class GUI{
 		tp1.add("In Series ",panel);
 
 		tp.add("Marking_Attendance_panel",tp1);
+	}
+	public void Reset_confirm_window_panel(){
+		Reset_confirm_window_panel = new JPanel();
+		JLabel Reset_confirm_Label = new JLabel("Are you sure You want to Reset all Marked Attendance ?");
+		Reset_confirm_Label.setBounds(10,20,200,25);
+		JButton Yes = new JButton("Yes");
+		JButton No = new JButton("No");
+		Yes.setBounds(30,80,80,25);
+		No.setBounds(100,60,80,25);
+		Reset_confirm_window_panel.add(Reset_confirm_Label);
+		Reset_confirm_window_panel.add(Yes);
+		Reset_confirm_window_panel.add(No);
+		Reset_confirm_window.add(Reset_confirm_window_panel);
 	}
 	public void Marking_Attendance_panel_2(){
 		panel4 =new JPanel();
