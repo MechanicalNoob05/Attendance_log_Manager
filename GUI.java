@@ -1,6 +1,6 @@
 import javax.swing.*;
 import java.awt.event.*;
-import java.awt.*;
+
 public class GUI{
 	JFrame Main_window,frame,Month_wise_view_window,Reset_confirm_window;
 	JPanel Serially_Attendace_marking,panel1,panel2,Documentation_panel,Selective_Attendace_marking_panel,ADSnames,HIS,Reset_confirm_window_panel;
