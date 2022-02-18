@@ -2,10 +2,10 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 public class GUI{
-	JFrame window,frame,Viewp,Reset_confirm_window;
-	JPanel panel,panel1,panel2,panel3,panel4,ADSnames,HIS,Reset_confirm_window_panel;
+	JFrame Main_window,frame,Month_wise_view_window,Reset_confirm_window;
+	JPanel Serially_Attendace_marking,panel1,panel2,Documentation_panel,Selective_Attendace_marking_panel,ADSnames,HIS,Reset_confirm_window_panel;
 	JLabel name,Roll,Date,CHDEP,CHDIV,CHNO,tab4,D,N,R,Roll1,PArb,ANo,SELDEP,SELDIV,SELNS,month1,month2,Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec;
-	JTabbedPane tp,tp1;
+	JTabbedPane Attendace_Making_Tab,Attendace_Making_Type_Selection_tab;
 	JTextField DEPNAME,DEPND,DEPNS,EntName,RONO;
 	public static void main(String[] args){
 		new GUI();
@@ -17,31 +17,31 @@ public class GUI{
 		Marking_Attendance_panel_2();
 		//Select_department_panel();
 		View_Monthly_panel();
-		createPanel3();
-		window.setVisible(true);
+		Help_Panel();
+		Main_window.setVisible(true);
 		Reset_confirm_window_panel();
 	}
 	public void createWindow(){
-		window = new JFrame("Test");
-		window.setSize(800,600);
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Main_window = new JFrame("Test");
+		Main_window.setSize(800,600);
+		Main_window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame = new JFrame("mansi");
 		frame.setSize(400, 400);
-		Viewp = new JFrame("Monthly_display_box");
-		Viewp.setSize(210,210);
+		Month_wise_view_window = new JFrame("Monthly_display_box");
+		Month_wise_view_window.setSize(210,210);
 		Reset_confirm_window = new JFrame("Confirmation");
 		Reset_confirm_window.setSize(500,200);
 	}
 	public void tabbedPane(){
-		tp=new JTabbedPane();
-		tp1=new JTabbedPane();
-		tp1.setBounds(50,50,200,200);
-   	 	tp.setBounds(50,50,200,200);
-   	 	window.add(tp);
+		Attendace_Making_Tab=new JTabbedPane();
+		Attendace_Making_Type_Selection_tab=new JTabbedPane();
+		Attendace_Making_Type_Selection_tab.setBounds(50,50,200,200);
+   	 	Attendace_Making_Tab.setBounds(50,50,200,200);
+   	 	Main_window.add(Attendace_Making_Tab);
 	}
 	public void Marking_Attendance_panel(){
-		panel =new JPanel();
-		panel.setLayout(null);
+		Serially_Attendace_marking =new JPanel();
+		Serially_Attendace_marking.setLayout(null);
 		name = new JLabel("Name:");
 		name.setBounds(10, 20, 80 , 25);
 
@@ -78,23 +78,23 @@ public class GUI{
 	  );
 		JButton Generate = new JButton("Create");
 		Generate.setBounds(365,200,100,25);
-		panel.add(name);
-		panel.add(Roll);
-		panel.add(Date);
+		Serially_Attendace_marking.add(name);
+		Serially_Attendace_marking.add(Roll);
+		Serially_Attendace_marking.add(Date);
 
-		panel.add(N);
-		panel.add(R);
-		panel.add(D);
+		Serially_Attendace_marking.add(N);
+		Serially_Attendace_marking.add(R);
+		Serially_Attendace_marking.add(D);
 
-		panel.add(Present);
-		panel.add(Absent);
-		panel.add(Back);
-		panel.add(Next);
-		panel.add(Reset);
-		panel.add(Generate);
-		tp1.add("In Series ",panel);
+		Serially_Attendace_marking.add(Present);
+		Serially_Attendace_marking.add(Absent);
+		Serially_Attendace_marking.add(Back);
+		Serially_Attendace_marking.add(Next);
+		Serially_Attendace_marking.add(Reset);
+		Serially_Attendace_marking.add(Generate);
+		Attendace_Making_Type_Selection_tab.add("In Series ",Serially_Attendace_marking);
 
-		tp.add("Marking_Attendance_panel",tp1);
+		Attendace_Making_Tab.add("Marking Attendance",Attendace_Making_Type_Selection_tab);
 	}
 	public void Reset_confirm_window_panel(){
 		Reset_confirm_window_panel = new JPanel();
@@ -110,14 +110,14 @@ public class GUI{
 		Reset_confirm_window.add(Reset_confirm_window_panel);
 	}
 	public void Marking_Attendance_panel_2(){
-		panel4 =new JPanel();
-		panel4.setLayout(null);
-		JRadioButton r1=new JRadioButton("Present");
-		JRadioButton r2=new JRadioButton("Absent");
-		r1.setBounds(150,20,100,30);
-		r2.setBounds(250,20,100,30);
+		Selective_Attendace_marking_panel =new JPanel ();
+		Selective_Attendace_marking_panel.setLayout(null);
+		JRadioButton Present_type_marking=new JRadioButton("Present");
+		JRadioButton Absent_type_marking=new JRadioButton("Absent");
+		Present_type_marking.setBounds(150,20,100,30);
+		Absent_type_marking.setBounds(250,20,100,30);
 		ButtonGroup bg=new ButtonGroup();
-	    bg.add(r1);bg.add(r2);
+	    bg.add(Present_type_marking);bg.add(Absent_type_marking);
 		PArb =new JLabel("Present/Absent: ");
 		PArb.setBounds(10,20,120,25);
 		ANo = new JLabel("All Roll no. Seperated by '','' :");
@@ -126,13 +126,13 @@ public class GUI{
         	area.setBounds(225,65, 400,50);
         	JButton submit=new JButton("Submit");
     		submit.setBounds(500,125,95,30);
-        	panel4.add(area);
-        	panel4.add(submit);
-		panel4.add(PArb);
-		panel4.add(ANo);
-		panel4.add(r1);
-		panel4.add(r2);
-		tp1.add("By Preset/Absent",panel4);
+        	Selective_Attendace_marking_panel.add(area);
+        	Selective_Attendace_marking_panel.add(submit);
+		Selective_Attendace_marking_panel.add(PArb);
+		Selective_Attendace_marking_panel.add(ANo);
+		Selective_Attendace_marking_panel.add(Present_type_marking);
+		Selective_Attendace_marking_panel.add(Absent_type_marking);
+		Attendace_Making_Type_Selection_tab.add("By Preset/Absent",Selective_Attendace_marking_panel);
 
 	}
 	public void Select_department_panel(){
@@ -171,7 +171,7 @@ public class GUI{
         }
     	}
 	  );
-		tp.add("Add Department",panel1);
+		Attendace_Making_Tab.add("Add Department",panel1);
 	}
 	public void Adding_student_panel(){
 		ADSnames=new JPanel();
@@ -232,14 +232,14 @@ public class GUI{
 		View.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 					Monthly_display_box();
-					Viewp.setVisible(true);
+					Month_wise_view_window.setVisible(true);
 
 				}
 			}
 		);
 		panel2.add(View);
 
-		tp.add("View History",panel2);
+		Attendace_Making_Tab.add("View History",panel2);
 	}
 	public void Monthly_display_box(){
 		HIS=new JPanel();
@@ -300,15 +300,15 @@ public class GUI{
 		Dec.setBounds(180,140,20,25);
 		HIS.add(Dec);
 
-		Viewp.add(HIS);
+		Month_wise_view_window.add(HIS);
 	}
-	public void createPanel3(){
-		panel3 =new JPanel();
-		panel3.setLayout(null);
-		tab4 = new JLabel("Rigu ki hal");
+	public void Help_Panel(){
+		Documentation_panel =new JPanel();
+		Documentation_panel.setLayout(null);
+		tab4 = new JLabel("How to use:");
 		tab4.setBounds(10, 60, 80 , 25);
-		panel3.add(tab4);
-		tp.add("Help",panel3);
+		Documentation_panel.add(tab4);
+		Attendace_Making_Tab.add("Help",Documentation_panel);
 	}
 
 }
