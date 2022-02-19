@@ -18,12 +18,14 @@ public class GUI{
 	JLabel name,Roll,Date,CHDEP,CHDIV,CHNO,tab4,D,N,R,Roll1,PArb,ANo,SELDEP,SELDIV,SELNS,month1,month2,Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec;
 	JTabbedPane Attendace_Making_Tab,Attendace_Making_Type_Selection_tab;
 	JTextField DEPNAME,DEPND,DEPNS,EntName,RONO;
+	JComboBox cb,cb1;
 	Workbook wb;
 	org.apache.poi.ss.usermodel.Sheet sh;
 	FileInputStream fis;
 	FileOutputStream fos;
 	Row row;
 	Cell cell;
+	int i=1;
 	public static void main(String[] args) throws EncryptedDocumentException, IOException{
 		new GUI();
 	}
@@ -37,7 +39,7 @@ public class GUI{
 		Help_Panel();
 		Main_window.setVisible(true);
 		Reset_confirm_window_panel();
-		Excel_Manupilation();
+		Excel_Data_Reading();
 	}
 	public void createWindow(){
 		Main_window = new JFrame("Test");
@@ -78,6 +80,14 @@ public class GUI{
 		//Setting up Buttons and their Actions
 		JButton Present = new JButton("Present");
 		Present.setBounds(10,100,100,25);
+		Present.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){	
+				N.setText("");
+				i++;
+
+        }
+    	}
+	  );
 		JButton Absent = new JButton("Absent");
 		Absent.setBounds(125,100,100,25);
 		JButton Back = new JButton("Back");
@@ -225,7 +235,7 @@ public class GUI{
 		CHDEP.setBounds(10, 20, 200 , 25);
 		panel2.add(CHDEP);
 		String Department[]={"chaman", "bade chaman", "full chaman"};
-		JComboBox cb=new JComboBox(Department);
+		cb=new JComboBox(Department);
     cb.setBounds(180, 20,200,20);
 		panel2.add(cb);
 
@@ -233,7 +243,7 @@ public class GUI{
 		CHDIV.setBounds(10,60, 200,30);
 		panel2.add(CHDIV);
 		String Division[]={"chaman", "bade chaman", "full chaman"};
-		JComboBox cb1=new JComboBox(Division);
+		cb1= new JComboBox(Division);
     cb1.setBounds(180, 60,200,20);
 		panel2.add(cb1);
 
@@ -328,21 +338,14 @@ public class GUI{
 		Documentation_panel.add(tab4);
 		Attendace_Making_Tab.add("Help",Documentation_panel);
 	}
-	public void Excel_Manupilation() throws EncryptedDocumentException, IOException {
+	public void Excel_Data_Reading() throws EncryptedDocumentException, IOException {
 		fis = new FileInputStream("./Test.xlsx");
 		wb = WorkbookFactory.create(fis);
 		sh = wb.getSheet("sheet1");
 		int no_of_row = sh.getLastRowNum();
 		System.out.println(no_of_row);
-
-		row = sh.createRow(1);
-		cell= row.createCell(0);
-		cell.setCellValue("hehe");
-		N.setText(cell.getStringCellValue()`);
-		fos=new FileOutputStream("./Test.xlsx");
-		wb.write(fos);
-		fos.flush();
-		fos.close();
+		
+		
 		System.out.println("done");
 	}
 
