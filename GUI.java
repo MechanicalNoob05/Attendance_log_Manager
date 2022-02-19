@@ -1,5 +1,16 @@
 import javax.swing.*;
+
+import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.sl.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+
 import java.awt.event.*;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class GUI{
 	JFrame Main_window,frame,Month_wise_view_window,Reset_confirm_window;
@@ -7,10 +18,16 @@ public class GUI{
 	JLabel name,Roll,Date,CHDEP,CHDIV,CHNO,tab4,D,N,R,Roll1,PArb,ANo,SELDEP,SELDIV,SELNS,month1,month2,Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec;
 	JTabbedPane Attendace_Making_Tab,Attendace_Making_Type_Selection_tab;
 	JTextField DEPNAME,DEPND,DEPNS,EntName,RONO;
-	public static void main(String[] args){
+	Workbook wb;
+	org.apache.poi.ss.usermodel.Sheet sh;
+	FileInputStream fis;
+	FileOutputStream fos;
+	Row row;
+	Cell cell;
+	public static void main(String[] args) throws EncryptedDocumentException, IOException{
 		new GUI();
 	}
-	public GUI(){
+	public GUI() throws EncryptedDocumentException, IOException{
 		createWindow();
 		tabbedPane();
 		Marking_Attendance_panel();
@@ -20,6 +37,7 @@ public class GUI{
 		Help_Panel();
 		Main_window.setVisible(true);
 		Reset_confirm_window_panel();
+		Excel_Manupilation();
 	}
 	public void createWindow(){
 		Main_window = new JFrame("Test");
@@ -309,6 +327,23 @@ public class GUI{
 		tab4.setBounds(10, 60, 80 , 25);
 		Documentation_panel.add(tab4);
 		Attendace_Making_Tab.add("Help",Documentation_panel);
+	}
+	public void Excel_Manupilation() throws EncryptedDocumentException, IOException {
+		fis = new FileInputStream("./Test.xlsx");
+		wb = WorkbookFactory.create(fis);
+		sh = wb.getSheet("sheet1");
+		int no_of_row = sh.getLastRowNum();
+		System.out.println(no_of_row);
+
+		row = sh.createRow(1);
+		cell= row.createCell(0);
+		cell.setCellValue("hehe");
+		N.setText(cell.getStringCellValue()`);
+		fos=new FileOutputStream("./Test.xlsx");
+		wb.write(fos);
+		fos.flush();
+		fos.close();
+		System.out.println("done");
 	}
 
 }
