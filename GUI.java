@@ -345,6 +345,11 @@ public class GUI{
 		int no_of_row = sh.getLastRowNum();
 		System.out.println(no_of_row);
 		
+		Row row=sh.getRow(1);
+		Cell c1=row.getCell(0);
+		String v =c1.toString();
+
+		System.out.println(v);
 		
 		System.out.println("done");
 	}
