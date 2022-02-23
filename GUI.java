@@ -398,5 +398,14 @@ public class GUI{
 		System.out.println("Done");
 		
 	}
+	public String Cell_to_string(int Row_no,int Cell_no) throws EncryptedDocumentException, IOException{
+		fis=new FileInputStream("./Test.xlsx");
+		wb =WorkbookFactory.create(fis);
+		sh=wb.getSheet("sheet1");
+		row=sh.getRow(Row_no);
+		c1=row.getCell(Cell_no);
+		String convert = c1.toString();
+		return convert;
+	}
 	
 }
