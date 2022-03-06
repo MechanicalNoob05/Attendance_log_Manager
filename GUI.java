@@ -1,3 +1,4 @@
+import javax.print.DocFlavor.STRING;
 import javax.swing.*;
 
 import org.apache.poi.EncryptedDocumentException;
@@ -82,47 +83,43 @@ public class GUI{
 		JButton Present = new JButton("Present");
 		Present.setBounds(10,100,100,25);
 		Present.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){	
-				Row row=sh.getRow(i);
-				Cell c1=row.getCell(0);
-				String v =c1.toString();
-				N.setText(v);
+			public void actionPerformed(ActionEvent e){
 				try {
-					Excel_Data_Writing(1);
+					Excel_Data_Writing(5,4);
+					N.setText(Cell_to_string(i, 0));
 				} catch (EncryptedDocumentException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}
-				i++;
-				
-        }
-	}
-	);
-	JButton Absent = new JButton("Absent");
-	Absent.setBounds(125,100,100,25);
-	Absent.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){	
-				row=sh.getRow(i);
-				c1=row.getCell(0);
-				String v =c1.toString();
-				N.setText(v);
-				try {
-					Excel_Data_Writing(5);
-				} catch (EncryptedDocumentException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				};
 				i++;
 				
 			}
     	}
-	  );
+		);
+
+		JButton Absent = new JButton("Absent");
+		Absent.setBounds(125,100,100,25);
+		Absent.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				try {
+					Excel_Data_Writing(2,1);
+					N.setText(Cell_to_string(i, 0));
+				} catch (EncryptedDocumentException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				};
+				i++;
+				
+			}
+    	}
+		);
+
 		JButton Back = new JButton("Back");
 		Back.setBounds(250,100,100,25);
 		JButton Next = new JButton("Next");
@@ -380,12 +377,12 @@ public class GUI{
 		System.out.println(no_of_row);
 		
 	}
-	public void Excel_Data_Writing(int Input) throws EncryptedDocumentException, IOException{
+	public void Excel_Data_Writing(int Input,int month) throws EncryptedDocumentException, IOException{
 		fis = new FileInputStream("./Test.xlsx");
 		wb =WorkbookFactory.create(fis);
 		sh =wb.getSheet("sheet1");
 		row =sh.getRow(i);
-		wCell=row.createCell(1);
+		wCell=row.createCell(month);
 		wCell.setCellValue(Input);
 		fos = new FileOutputStream("./Test.xlsx");
 		wb.write(fos);

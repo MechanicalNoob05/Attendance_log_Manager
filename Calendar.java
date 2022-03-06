@@ -37,7 +37,7 @@ public class Calendar{
         lblYear = new JLabel ("Change year:");
         cmbYear = new JComboBox();
         btnPrev = new JButton ("<");
-        btnNext = new JButton (">;
+        btnNext = new JButton (">");
         mtblCalendar = new DefaultTableModel(){public boolean isCellEditable(int rowIndex, int mColIndex){return false;}};
         tblCalendar = new JTable(mtblCalendar);
         stblCalendar = new JScrollPane(tblCalendar);
