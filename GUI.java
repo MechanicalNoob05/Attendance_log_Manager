@@ -1,8 +1,6 @@
-import javax.print.DocFlavor.STRING;
 import javax.swing.*;
 
 import org.apache.poi.EncryptedDocumentException;
-import org.apache.poi.sl.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -10,7 +8,6 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import java.awt.event.*;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -27,7 +24,7 @@ public class GUI{
 	FileOutputStream fos;
 	Row row;
 	Cell c1,wCell;
-	int i=1; 
+	int i=1,no_of_row=0,update; 
 	public static void main(String[] args) throws EncryptedDocumentException, IOException{
 		new GUI();
 	}
@@ -84,8 +81,9 @@ public class GUI{
 		Present.setBounds(10,100,100,25);
 		Present.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
+				
 				try {
-					Excel_Data_Writing(5,4);
+					Excel_Data_Writing(1);
 					N.setText(Cell_to_string(i, 0));
 				} catch (EncryptedDocumentException e1) {
 					// TODO Auto-generated catch block
@@ -105,7 +103,6 @@ public class GUI{
 		Absent.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				try {
-					Excel_Data_Writing(2,1);
 					N.setText(Cell_to_string(i, 0));
 				} catch (EncryptedDocumentException e1) {
 					// TODO Auto-generated catch block
@@ -311,7 +308,7 @@ public class GUI{
 		HIS.add(month2);
 		
 		
-		Jan = new JLabel("");
+		Jan = new JLabel("0");
 		Jan.setBounds(10,60,20,25);
 		HIS.add(Jan);
 		
@@ -375,20 +372,21 @@ public class GUI{
 		sh = wb.getSheet("sheet1");
 		int no_of_row =sh.getLastRowNum();
 		System.out.println(no_of_row);
-		
+				
 	}
-	public void Excel_Data_Writing(int Input,int month) throws EncryptedDocumentException, IOException{
+	public void Excel_Data_Writing(int month) throws EncryptedDocumentException, IOException{
 		fis = new FileInputStream("./Test.xlsx");
 		wb =WorkbookFactory.create(fis);
 		sh =wb.getSheet("sheet1");
 		row =sh.getRow(i);
-		wCell=row.createCell(month);
-		wCell.setCellValue(Input);
+		wCell=row.getCell(month);
+		update = (int) wCell.getNumericCellValue();
+		wCell.setCellValue(update+1);
 		fos = new FileOutputStream("./Test.xlsx");
 		wb.write(fos);
 		fos.flush();
 		fos.close();
-		int no_of_row = sh.getLastRowNum();
+		no_of_row = sh.getLastRowNum();
 		if(i==no_of_row){
 			N.setText("Completed");
 		}
