@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.swing.event.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -9,7 +8,7 @@ public class Calendar{
     static JLabel lblMonth, lblYear;
     static JButton btnPrev, btnNext;
     static JTable tblCalendar;
-    static JComboBox cmbYear;
+    static JComboBox<String> cmbYear;
     static JFrame frmMain;
     static Container pane;
     static DefaultTableModel mtblCalendar; //Table model
@@ -35,7 +34,7 @@ public class Calendar{
         //Create controls
         lblMonth = new JLabel ("January");
         lblYear = new JLabel ("Change year:");
-        cmbYear = new JComboBox();
+        cmbYear = new JComboBox<>();
         btnPrev = new JButton ("<");
         btnNext = new JButton (">");
         mtblCalendar = new DefaultTableModel(){public boolean isCellEditable(int rowIndex, int mColIndex){return false;}};

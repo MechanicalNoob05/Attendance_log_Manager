@@ -21,7 +21,7 @@ public class GUI{
 	JLabel name,Roll,Date,CHDEP,CHDIV,CHNO,tab4,D,N,R,Roll1,PArb,ANo,SELDEP,SELDIV,SELNS,month1,month2,Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec,filename;
 	JTabbedPane Attendace_Making_Tab,Attendace_Making_Type_Selection_tab;
 	JTextField DEPNAME,DEPND,DEPNS,EntName,RONO;
-	JComboBox cb,cb1;
+	JComboBox<String> cb,cb1;
 	Workbook wb;
 	org.apache.poi.ss.usermodel.Sheet sh;
 	FileInputStream fis;
@@ -31,6 +31,8 @@ public class GUI{
 	int i=1,no_of_row=0,update; 
 	JFileChooser Openfile;
 	String fileAddress,fileName;
+	
+	 
 	public static void main(String[] args) throws EncryptedDocumentException, IOException{
 		new GUI();
 	}
@@ -102,10 +104,10 @@ public class GUI{
 						N.setText("Complete");
 					}
 				} catch (EncryptedDocumentException e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				};
 				
@@ -126,10 +128,10 @@ public class GUI{
 						N.setText("Complete");
 					}
 				} catch (EncryptedDocumentException e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				};
 				
@@ -290,7 +292,7 @@ public class GUI{
 		CHDEP.setBounds(10, 20, 200 , 25);
 		panel2.add(CHDEP);
 		String Department[]={"chaman", "bade chaman", "full chaman"};
-		cb=new JComboBox(Department);
+		cb=new JComboBox<String>(Department);
 		cb.setBounds(180, 20,200,20);
 		panel2.add(cb);
 		
@@ -298,7 +300,7 @@ public class GUI{
 		CHDIV.setBounds(10,60, 200,30);
 		panel2.add(CHDIV);
 		String Division[]={"chaman", "bade chaman", "full chaman"};
-		cb1= new JComboBox(Division);
+		cb1= new JComboBox<String>(Division);
 		cb1.setBounds(180, 60,200,20);
 		panel2.add(cb1);
 		
