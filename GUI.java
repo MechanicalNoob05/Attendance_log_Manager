@@ -1,6 +1,5 @@
 import javax.swing.*;
 
-import org.apache.logging.log4j.util.Strings;
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Color;
@@ -21,7 +20,7 @@ public class GUI {
 	JFrame Reset_confirm_window;
 	JPanel Serially_Attendace_marking, panel1, panel2, Documentation_panel, Selective_Attendace_marking_panel, ADSnames,
 			HIS, Reset_confirm_window_panel;
-	JLabel name, Roll, Select_sub, CHDEP, CHDIV, CHNO, tab4, N, R, Roll1, PArb, ANo, SELDEP, SELDIV, SELNS, month1, month2,
+	JLabel name, Roll, Date, CHDEP, CHDIV, CHNO, tab4, D, N, R, Roll1, PArb, ANo, SELDEP, SELDIV, SELNS, month1, month2,
 			Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec, filename;
 	JTabbedPane Attendace_Making_Tab, Attendace_Making_Type_Selection_tab;
 	JTextField DEPNAME, DEPND, DEPNS, EntName, RONO;
@@ -35,9 +34,6 @@ public class GUI {
 	int i = 1, no_of_row = 0, update,Sheet_index,no_of_sheets;
 	JFileChooser Openfile;
 	String fileAddress, fileName;
-	String Subs[]={"car","red","yellow"};
-	JComboBox<String> Sel_sub;
-
 	
 	public static void main(String[] args) throws EncryptedDocumentException, IOException {
 		new GUI();
@@ -88,11 +84,11 @@ public class GUI {
 		
 		Roll = new JLabel("Roll no.: ");
 		Roll.setBounds(10, 80, 80, 25);
-		Select_sub = new JLabel("Select Sub:");
-		Select_sub.setBounds(250, 60, 100, 25);
+		Date = new JLabel("Date:");
+		Date.setBounds(250, 40, 80, 25);
 		
-		Sel_sub = new JComboBox<String>(Subs);
-		Sel_sub.setBounds(350, 60, 165, 25);
+		D = new JLabel("12/12/12");
+		D.setBounds(350, 40, 165, 25);
 		N = new JLabel();
 		N.setBounds(60, 40, 165, 25);
 		R = new JLabel();
@@ -130,7 +126,7 @@ public class GUI {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					if (i != no_of_row) {
-						Excel_Data_Writing(1, 0 		);
+						Excel_Data_Writing(1, 0);
 						N.setText(Cell_to_string(i, 0));
 						i++;
 					} else {
@@ -172,11 +168,11 @@ public class GUI {
 		Serially_Attendace_marking.add(filename);
 		Serially_Attendace_marking.add(name);
 		Serially_Attendace_marking.add(Roll);
-		Serially_Attendace_marking.add(Select_sub);
+		Serially_Attendace_marking.add(Date);
 		
 		Serially_Attendace_marking.add(N);
 		Serially_Attendace_marking.add(R);
-		Serially_Attendace_marking.add(Sel_sub);
+		Serially_Attendace_marking.add(D);
 		
 		Serially_Attendace_marking.add(Present);
 		Serially_Attendace_marking.add(Absent);
@@ -289,32 +285,17 @@ public class GUI {
 	public void View_Monthly_panel() {
 		panel2 = new JPanel();
 		panel2.setLayout(null);
-		CHDEP = new JLabel("Select Department:");
-		CHDEP.setBounds(10, 20, 200, 25);
-		panel2.add(CHDEP);
-		String Department[] = { "chaman", "bade chaman", "full chaman" };
-		cb = new JComboBox<String>(Department);
-		cb.setBounds(180, 20, 200, 20);
-		panel2.add(cb);
-		
-		CHDIV = new JLabel("Select Division: ");
-		CHDIV.setBounds(10, 60, 200, 30);
-		panel2.add(CHDIV);
-		String Division[] = { "chaman", "bade chaman", "full chaman" };
-		cb1 = new JComboBox<String>(Division);
-		cb1.setBounds(180, 60, 200, 20);
-		panel2.add(cb1);
 		
 		CHNO = new JLabel("Enter Student Roll no.: ");
-		CHNO.setBounds(10, 100, 200, 30);
+		CHNO.setBounds(10, 40, 200, 30);
 		panel2.add(CHNO);
 		
 		RONO = new JTextField("");
-		RONO.setBounds(180, 100, 50, 30);
+		RONO.setBounds(180, 40, 50, 30);
 		panel2.add(RONO);
 		
 		JButton View = new JButton("View");
-		View.setBounds(210, 250, 140, 30);
+		View.setBounds(210, 100, 100, 30);
 		View.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Monthly_display_box();
@@ -445,5 +426,6 @@ public class GUI {
 			fileAddress = chooser.getDirectory();
 		}
 	}
+	
 
 }
