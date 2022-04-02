@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
+
 import java.awt.*;
 
 import org.apache.batik.ext.awt.image.codec.png.PNGEncodeParam.Gray;
@@ -14,6 +16,7 @@ import java.awt.event.*;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.time.Month;
 
 public class GUI {
 	JFrame Main_window;
@@ -21,9 +24,9 @@ public class GUI {
 	JFrame Month_wise_view_window;
 	JFrame Reset_confirm_window;
 	JPanel Serially_Attendace_marking, panel1, panel2, Documentation_panel, Selective_Attendace_marking_panel, ADSnames,
-			HIS, Reset_confirm_window_panel;
-	JLabel name, Roll, Date, CHDEP, CHDIV, CHNO, tab4, D, N, R, Roll1, PArb, ANo, SELDEP, SELDIV, SELNS, month1, month2,
-			Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec, filename;
+	HIS, Reset_confirm_window_panel;
+	JLabel name, Roll, Date, CHDEP, CHDIV, CHNO, tab4, Month, N, R, Roll1, PArb, ANo, SELDEP, SELDIV, SELNS, month1, month2,
+	Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec, filename;
 	JTabbedPane Attendace_Making_Tab, Attendace_Making_Type_Selection_tab;
 	JTextField DEPNAME, DEPND, DEPNS, EntName, RONO;
 	JComboBox<String> cb, cb1;
@@ -36,6 +39,7 @@ public class GUI {
 	int i = 1, no_of_row = 0, update,Sheet_index,no_of_sheets;
 	JFileChooser Openfile;
 	String fileAddress, fileName;
+	String Months[]={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
 	
 	public static void main(String[] args) throws EncryptedDocumentException, IOException {
 		new GUI();
@@ -86,11 +90,12 @@ public class GUI {
 		
 		Roll = new JLabel("Roll no.: ");
 		Roll.setBounds(10, 80, 80, 25);
-		Date = new JLabel("Date:");
-		Date.setBounds(250, 40, 80, 25);
+		Date = new JLabel("Month:");
+		Date.setBounds(400, 50, 80, 25);
 		
-		D = new JLabel("12/12/12");
-		D.setBounds(350, 40, 165, 25);
+		JComboBox<String> Month = new JComboBox<String>(Months);
+		Month.setBounds(500, 50, 165, 25);
+
 		N = new JLabel();
 		N.setBounds(60, 40, 165, 25);
 		R = new JLabel();
@@ -155,7 +160,7 @@ public class GUI {
 			}
 		});
 		JButton Next = new JButton("Next");
-		Next.setBounds(365, 120, 100, 25);
+		Next.setBounds(550, 120, 100, 25);
 		JButton Reset = new JButton("Reset");
 		Reset.setBounds(10, 200, 100, 25);
 		Reset.addActionListener(new ActionListener() {
@@ -166,7 +171,13 @@ public class GUI {
 			}
 		});
 		JButton Generate = new JButton("Create");
-		Generate.setBounds(365, 200, 100, 25);
+		Generate.setBounds(550, 200, 100, 25);
+		Generate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Test();
+				
+			}
+		});
 		Serially_Attendace_marking.add(filename);
 		Serially_Attendace_marking.add(name);
 		Serially_Attendace_marking.add(Roll);
@@ -174,7 +185,7 @@ public class GUI {
 		
 		Serially_Attendace_marking.add(N);
 		Serially_Attendace_marking.add(R);
-		Serially_Attendace_marking.add(D);
+		Serially_Attendace_marking.add(Month);
 		
 		Serially_Attendace_marking.add(Present);
 		Serially_Attendace_marking.add(Absent);
@@ -235,6 +246,29 @@ public class GUI {
 		Selective_Attendace_marking_panel.add(Absent_type_marking);
 		Attendace_Making_Type_Selection_tab.add("By Preset/Absent", Selective_Attendace_marking_panel);
 		
+	}
+	public void Test(){
+
+		JFrame frame = new JFrame();
+        JPanel panel = new JPanel();
+        panel.setBorder(BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder(), "Student List", TitledBorder.LEFT, TitledBorder.TOP));
+      	String[][] rec = {
+         { "1", "Steve", "","" },
+         { "2", "Virat", "","" },
+         { "3", "Kane", "","" },
+         { "4", "David", "","" },
+         { "5", "Ben", "","" },
+         { "6", "Eion", "","" },
+     	 };
+      	String[] header = { "Roll no.", "Name", "Present", "Absent" };
+      	JTable table = new JTable(rec, header);
+		JButton sub = new JButton("Submit");
+		sub.setBounds(500, 200, 100, 25);
+      	panel.add(new JScrollPane(table));
+		panel.add(sub);
+      	frame.add(panel);
+      	frame.setSize(600, 400);
+      	frame.setVisible(true);
 	}
 	
 	public void Select_department_panel() {
