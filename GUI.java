@@ -1,5 +1,7 @@
 import javax.swing.*;
+import java.awt.*;
 
+import org.apache.batik.ext.awt.image.codec.png.PNGEncodeParam.Gray;
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Color;
@@ -211,10 +213,13 @@ public class GUI {
 		bg.add(Absent_type_marking);
 		PArb = new JLabel("Present/Absent: ");
 		PArb.setBounds(10, 20, 120, 25);
-		ANo = new JLabel("All Roll no. Seperated by '','' :");
-		ANo.setBounds(10, 60, 220, 25);
-		JTextArea area = new JTextArea("");
-		area.setBounds(225, 65, 400, 50);
+		
+		JPanel list_of_student_Panel = new JPanel();
+		list_of_student_Panel.setLayout(null);
+		list_of_student_Panel.setBounds(10, 60, 650, 400);
+		list_of_student_Panel.setBackground(java.awt.Color.BLUE);
+		Selective_Attendace_marking_panel.add(list_of_student_Panel);
+		
 		JButton submit = new JButton("Confirm");
 		submit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -223,11 +228,9 @@ public class GUI {
 				
 			}
 		});
-		submit.setBounds(500, 125, 95, 30);
-		Selective_Attendace_marking_panel.add(area);
+		submit.setBounds(560, 470, 95, 30);
 		Selective_Attendace_marking_panel.add(submit);
 		Selective_Attendace_marking_panel.add(PArb);
-		Selective_Attendace_marking_panel.add(ANo);
 		Selective_Attendace_marking_panel.add(Present_type_marking);
 		Selective_Attendace_marking_panel.add(Absent_type_marking);
 		Attendace_Making_Type_Selection_tab.add("By Preset/Absent", Selective_Attendace_marking_panel);
