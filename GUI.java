@@ -1,12 +1,8 @@
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
-import java.awt.*;
-
-import org.apache.batik.ext.awt.image.codec.png.PNGEncodeParam.Gray;
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Color;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
@@ -16,7 +12,6 @@ import java.awt.event.*;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.time.Month;
 
 public class GUI {
 	JFrame Main_window;
