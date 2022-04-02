@@ -49,7 +49,6 @@ public class GUI {
 		createWindow();
 		tabbedPane();
 		Marking_Attendance_panel();
-		Marking_Attendance_panel_2();
 		Select_department_panel();
 		View_Monthly_panel();
 		Help_Panel();
@@ -72,8 +71,6 @@ public class GUI {
 
 	public void tabbedPane() {
 		Attendace_Making_Tab = new JTabbedPane();
-		Attendace_Making_Type_Selection_tab = new JTabbedPane();
-		Attendace_Making_Type_Selection_tab.setBounds(50, 50, 200, 200);
 		Attendace_Making_Tab.setBounds(50, 50, 200, 200);
 		Main_window.add(Attendace_Making_Tab);
 	}
@@ -170,7 +167,7 @@ public class GUI {
 				
 			}
 		});
-		JButton Generate = new JButton("Create");
+		JButton Generate = new JButton("Selective");
 		Generate.setBounds(550, 200, 100, 25);
 		Generate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -193,9 +190,8 @@ public class GUI {
 		Serially_Attendace_marking.add(Next);
 		Serially_Attendace_marking.add(Reset);
 		Serially_Attendace_marking.add(Generate);
-		Attendace_Making_Type_Selection_tab.add("In Series ", Serially_Attendace_marking);
 		
-		Attendace_Making_Tab.add("Marking Attendance", Attendace_Making_Type_Selection_tab);
+		Attendace_Making_Tab.add("Marking Attendance", Serially_Attendace_marking);
 	}
 
 	public void Reset_confirm_window_panel() {
@@ -212,41 +208,7 @@ public class GUI {
 		Reset_confirm_window.add(Reset_confirm_window_panel);
 	}
 
-	public void Marking_Attendance_panel_2() {
-		Selective_Attendace_marking_panel = new JPanel();
-		Selective_Attendace_marking_panel.setLayout(null);
-		JRadioButton Present_type_marking = new JRadioButton("Present");
-		JRadioButton Absent_type_marking = new JRadioButton("Absent");
-		Present_type_marking.setBounds(150, 20, 100, 30);
-		Absent_type_marking.setBounds(250, 20, 100, 30);
-		ButtonGroup bg = new ButtonGroup();
-		bg.add(Present_type_marking);
-		bg.add(Absent_type_marking);
-		PArb = new JLabel("Present/Absent: ");
-		PArb.setBounds(10, 20, 120, 25);
-		
-		JPanel list_of_student_Panel = new JPanel();
-		list_of_student_Panel.setLayout(null);
-		list_of_student_Panel.setBounds(10, 60, 650, 400);
-		list_of_student_Panel.setBackground(java.awt.Color.BLUE);
-		Selective_Attendace_marking_panel.add(list_of_student_Panel);
-		
-		JButton submit = new JButton("Confirm");
-		submit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Adding_student_panel();
-				frame.setVisible(true);
-				
-			}
-		});
-		submit.setBounds(560, 470, 95, 30);
-		Selective_Attendace_marking_panel.add(submit);
-		Selective_Attendace_marking_panel.add(PArb);
-		Selective_Attendace_marking_panel.add(Present_type_marking);
-		Selective_Attendace_marking_panel.add(Absent_type_marking);
-		Attendace_Making_Type_Selection_tab.add("By Preset/Absent", Selective_Attendace_marking_panel);
-		
-	}
+	
 	public void Test(){
 
 		JFrame frame = new JFrame();
@@ -263,11 +225,26 @@ public class GUI {
       	String[] header = { "Roll no.", "Name", "Present", "Absent" };
       	JTable table = new JTable(rec, header);
 		JButton sub = new JButton("Submit");
-		sub.setBounds(500, 200, 100, 25);
+		sub.setBounds(200, 200, 100, 25);
+
+		JRadioButton Present_type_marking = new JRadioButton("Present");
+		JRadioButton Absent_type_marking = new JRadioButton("Absent");
+		Present_type_marking.setBounds(150, 20, 100, 30);
+		Absent_type_marking.setBounds(250, 20, 100, 30);
+		ButtonGroup bg = new ButtonGroup();
+		bg.add(Present_type_marking);
+		bg.add(Absent_type_marking);
+		
+
       	panel.add(new JScrollPane(table));
 		panel.add(sub);
+
+		panel.add(Present_type_marking);
+		panel.add(Absent_type_marking);
+	
+
       	frame.add(panel);
-      	frame.setSize(600, 400);
+      	frame.setSize(900, 400);
       	frame.setVisible(true);
 	}
 	
