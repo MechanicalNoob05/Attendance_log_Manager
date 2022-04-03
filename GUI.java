@@ -49,7 +49,7 @@ public class GUI {
 		Help_Panel();
 		Main_window.setVisible(true);
 		Reset_confirm_window_panel();
-		Excel_Data_Reading();
+		//Excel_Data_Reading();
 	}
 
 	public void createWindow() {
@@ -149,6 +149,15 @@ public class GUI {
 			public void actionPerformed(ActionEvent e) {
 				File_Opening();
 				filename.setText(fileName);
+				try {
+					Excel_Data_Reading();
+				} catch (EncryptedDocumentException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		JButton Next = new JButton("Next");
@@ -392,8 +401,13 @@ public class GUI {
 		fis = new FileInputStream(fileName);
 		wb = WorkbookFactory.create(fis);
 		sh = wb.getSheetAt(Sheet_index);
-		int no_of_row = sh.getLastRowNum();
-		System.out.println(no_of_row);
+		no_of_row = sh.getLastRowNum();
+		for(int m = 0;m<no_of_row;m++){
+			row = sh.getRow(m+1);
+			c1 =row.getCell(0);
+			String temp = c1.getStringCellValue();
+			System.out.println(temp); 
+		}
 		
 	}
 	
