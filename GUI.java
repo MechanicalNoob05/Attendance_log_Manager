@@ -1,5 +1,6 @@
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.ss.usermodel.Cell;
@@ -50,6 +51,7 @@ public class GUI {
 		Main_window.setVisible(true);
 		Reset_confirm_window_panel();
 		//Excel_Data_Reading();
+		
 	}
 
 	public void createWindow() {
@@ -98,20 +100,14 @@ public class GUI {
 		Present.setBounds(10, 120, 100, 25);
 		Present.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				try {
-					if (i != no_of_row) {
-						Excel_Data_Writing(1,1);
-						N.setText(Cell_to_string(i, 0));
-						i++;
-					} else {
-						N.setText("Complete");
-					}
-				} catch (EncryptedDocumentException e1) {
+					Excel_Data_Writing(1,1,i);
+					N.setText(Cell_to_string(i, 0));
+					i++;					
 					
+				} catch (EncryptedDocumentException e1) {
 					e1.printStackTrace();
 				} catch (IOException e1) {
-
 					e1.printStackTrace();
 				}
 				;
@@ -124,13 +120,10 @@ public class GUI {
 		Absent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if (i != no_of_row) {
-						Excel_Data_Writing(1, 0);
-						N.setText(Cell_to_string(i, 0));
-						i++;
-					} else {
-						N.setText("Complete");
-					}
+					Excel_Data_Writing(1, 0,i);
+					N.setText(Cell_to_string(i, 0));
+					i++;
+					
 				} catch (EncryptedDocumentException e1) {
 					
 					e1.printStackTrace();
@@ -149,15 +142,7 @@ public class GUI {
 			public void actionPerformed(ActionEvent e) {
 				File_Opening();
 				filename.setText(fileName);
-				try {
-					Excel_Data_Reading();
-				} catch (EncryptedDocumentException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				
 			}
 		});
 		JButton Next = new JButton("Next");
@@ -175,7 +160,15 @@ public class GUI {
 		Generate.setBounds(550, 200, 100, 25);
 		Generate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Test();
+				try {
+					Test();
+				} catch (EncryptedDocumentException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				
 			}
 		});
@@ -213,38 +206,99 @@ public class GUI {
 	}
 
 	
-	public void Test(){
+	public void Test() throws EncryptedDocumentException, IOException{
 
 		JFrame frame = new JFrame();
         JPanel panel = new JPanel();
+		DefaultTableModel model = new DefaultTableModel(){
+			public Class<?> getColumnClass(int column){
+				switch(column){
+					case 0:
+						return String.class;
+					case 1:
+						return String.class;
+					case 2:
+						return Boolean.class;
+					default:
+						return String.class;
+				}
+			}
+		};
+		
+		String list[]=Excel_Data_Reading();
+		String[] list2=new String[no_of_row];
+		Boolean entry[]= new Boolean[no_of_row];
+		for(int m=0;m<no_of_row;m++){
+			list2[m]= Integer.toString(m+1);
+		}
+		model.addColumn("Roll", list2);
+		model.addColumn("Name", list);
+
+		model.addColumn("Present", entry);
+   
         panel.setBorder(BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder(), "Student List", TitledBorder.LEFT, TitledBorder.TOP));
-      	String[][] rec = {
-         { "1", "Steve", "","" },
-         { "2", "Virat", "","" },
-         { "3", "Kane", "","" },
-         { "4", "David", "","" },
-         { "5", "Ben", "","" },
-         { "6", "Eion", "","" },
-     	 };
-      	String[] header = { "Roll no.", "Name", "Present", "Absent" };
-      	JTable table = new JTable(rec, header);
+      	
+		JTable table = new JTable(model);
 		JButton sub = new JButton("Submit");
 		sub.setBounds(200, 200, 100, 25);
 
-		JRadioButton Present_type_marking = new JRadioButton("Present");
-		JRadioButton Absent_type_marking = new JRadioButton("Absent");
+
+		JRadioButton Present_type_marking = new JRadioButton("Select All");
 		Present_type_marking.setBounds(150, 20, 100, 30);
-		Absent_type_marking.setBounds(250, 20, 100, 30);
-		ButtonGroup bg = new ButtonGroup();
-		bg.add(Present_type_marking);
-		bg.add(Absent_type_marking);
+		Present_type_marking.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				for(int n=0;n<no_of_row;n++){
+					model.setValueAt(true, n, 2);
+				}				
+			}
+		});
+		boolean result[]=new boolean[table.getRowCount()];
+		sub.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				for(int level =0;level<table.getRowCount();level++){
+					if(table.getValueAt(level, 2)==null){
+						model.setValueAt(false, level, 2);
+					}
+				}
+				for(int m=0;m<table.getRowCount();m++){
+					boolean res= (boolean) table.getValueAt(m, 2);
+					result[m]=res;
+				}
+				for(int sel=0;sel<table.getRowCount();sel++){
+					if(result[sel] == true){
+						try {
+							Excel_Data_Writing(1, 1,sel);
+							//sel++;
+						} catch (EncryptedDocumentException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+					else{
+						try {
+							Excel_Data_Writing(1, 0,sel);
+							//i++;
+						} catch (EncryptedDocumentException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+					
+				}
+			}
+		});
 		
 
-      	panel.add(new JScrollPane(table));
+		panel.add(new JScrollPane(table));
 		panel.add(sub);
 
 		panel.add(Present_type_marking);
-		panel.add(Absent_type_marking);
 	
 
       	frame.add(panel);
@@ -316,7 +370,15 @@ public class GUI {
 		View.setBounds(210, 100, 100, 30);
 		View.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Monthly_display_box();
+				try {
+					Monthly_display_box();
+				} catch (EncryptedDocumentException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				Month_wise_view_window.setVisible(true);
 				
 			}
@@ -326,7 +388,7 @@ public class GUI {
 		Attendace_Making_Tab.add("View History", panel2);
 	}
 
-	public void Monthly_display_box() {
+	public void Monthly_display_box() throws EncryptedDocumentException, IOException {
 		HIS = new JPanel();
 		HIS.setLayout(null);
 		HIS.setBounds(10, 20, 200, 200);
@@ -337,6 +399,7 @@ public class GUI {
 		HIS.add(month1);
 		HIS.add(month2);
 		
+
 		Jan = new JLabel("0");
 		Jan.setBounds(10, 60, 20, 25);
 		HIS.add(Jan);
@@ -397,27 +460,50 @@ public class GUI {
 		Attendace_Making_Tab.add("Help", Documentation_panel);
 	}
 
-	public void Excel_Data_Reading() throws EncryptedDocumentException, IOException {
+	public String[] Excel_Data_Reading() throws EncryptedDocumentException, IOException {
 		fis = new FileInputStream(fileName);
 		wb = WorkbookFactory.create(fis);
 		sh = wb.getSheetAt(Sheet_index);
 		no_of_row = sh.getLastRowNum();
+		String list[]=new String[no_of_row];
 		for(int m = 0;m<no_of_row;m++){
 			row = sh.getRow(m+1);
 			c1 =row.getCell(0);
-			String temp = c1.getStringCellValue();
-			System.out.println(temp); 
+			if(c1 !=null){
+				String temp = c1.getStringCellValue();
+				list[m]=temp; 
+			}
 		}
+		return list;
+	}
+	public int[] Month_update() throws EncryptedDocumentException, IOException{
+		fis = new FileInputStream(fileName);
+		wb = WorkbookFactory.create(fis);
+		sh = wb.getSheetAt(Sheet_index);
+		no_of_row = sh.getLastRowNum();
+		row = sh.getRow(1);
+		int mon[]= new int[11];
+		for(int m=0;m<=12;m++){
+			c1 =row.getCell(m);
+			int temp = (int) c1.getNumericCellValue();
+			mon[0]= temp;
+		}
+		return mon;
 		
 	}
 	
-	public void Excel_Data_Writing(int month,int act) throws EncryptedDocumentException, IOException {
+	public void Excel_Data_Writing(int month,int act , int lane) throws EncryptedDocumentException, IOException {
 		fis = new FileInputStream(fileName);
 		wb = WorkbookFactory.create(fis);
 		no_of_sheets = wb.getNumberOfSheets();
 		System.out.println(no_of_sheets);
 		sh = wb.getSheetAt(Sheet_index);
-		row = sh.getRow(i);
+		no_of_row = sh.getLastRowNum();
+		row = sh.getRow(lane);
+		if(row == null){
+			N.setText("completed");
+		}
+		else{
 		c1 = row.getCell(month);
 		update = (int) c1.getNumericCellValue();
 		c1.setCellValue(update + act);
@@ -425,10 +511,9 @@ public class GUI {
 		wb.write(fos);
 		fos.flush();
 		fos.close();
-		no_of_row = sh.getLastRowNum();
 		
 		System.out.println("Done");
-		
+		}
 	}
 	
 	public String Cell_to_string(int Row_no, int Cell_no) throws EncryptedDocumentException, IOException {
