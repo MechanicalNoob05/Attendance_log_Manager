@@ -362,7 +362,8 @@ public class GUI {
 		CHNO.setBounds(10, 40, 200, 30);
 		panel2.add(CHNO);
 		
-		RONO = new JTextField("");
+		
+		RONO = new JTextField();
 		RONO.setBounds(180, 40, 50, 30);
 		panel2.add(RONO);
 		
@@ -371,7 +372,9 @@ public class GUI {
 		View.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					String input = RONO.getText();
 					Monthly_display_box();
+					Month_update(input);
 				} catch (EncryptedDocumentException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -476,19 +479,51 @@ public class GUI {
 		}
 		return list;
 	}
-	public int[] Month_update() throws EncryptedDocumentException, IOException{
+	public void Month_update(String input) throws EncryptedDocumentException, IOException{
 		fis = new FileInputStream(fileName);
 		wb = WorkbookFactory.create(fis);
 		sh = wb.getSheetAt(Sheet_index);
 		no_of_row = sh.getLastRowNum();
-		row = sh.getRow(1);
-		int mon[]= new int[11];
-		for(int m=0;m<=12;m++){
-			c1 =row.getCell(m);
-			int temp = (int) c1.getNumericCellValue();
-			mon[0]= temp;
-		}
-		return mon;
+		int roll = Integer.parseInt(input);
+		row = sh.getRow(roll);
+		
+		c1=row.getCell(1);
+		int temp1 = (int) c1.getNumericCellValue();
+		c1=row.getCell(2);
+		int temp2 = (int) c1.getNumericCellValue();
+		c1=row.getCell(3);
+		int temp3 = (int) c1.getNumericCellValue();
+		c1=row.getCell(4);
+		int temp4 = (int) c1.getNumericCellValue();
+		c1=row.getCell(5);
+		int temp5 = (int) c1.getNumericCellValue();
+		c1=row.getCell(6);
+		int temp6 = (int) c1.getNumericCellValue();
+		c1=row.getCell(7);
+		int temp7 = (int) c1.getNumericCellValue();
+		c1=row.getCell(8);
+		int temp8 = (int) c1.getNumericCellValue();
+		c1=row.getCell(9);
+		int temp9 = (int) c1.getNumericCellValue();
+		c1=row.getCell(10);
+		int temp10 = (int) c1.getNumericCellValue();
+		c1=row.getCell(11);
+		int temp11 = (int) c1.getNumericCellValue();
+		c1=row.getCell(12);
+		int temp12 = (int) c1.getNumericCellValue();
+
+		Jan.setText(Integer.toString(temp1));
+		Feb.setText(Integer.toString(temp2));
+		Mar.setText(Integer.toString(temp3));
+		Apr.setText(Integer.toString(temp4));
+		May.setText(Integer.toString(temp5));
+		Jun.setText(Integer.toString(temp6));
+		Jul.setText(Integer.toString(temp7));
+		Aug.setText(Integer.toString(temp8));
+		Sep.setText(Integer.toString(temp9));
+		Oct.setText(Integer.toString(temp10));
+		Nov.setText(Integer.toString(temp11));
+		Dec.setText(Integer.toString(temp12));
 		
 	}
 	
