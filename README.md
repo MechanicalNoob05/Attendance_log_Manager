@@ -1,6 +1,5 @@
 ### Hi there 👋
 ### Main Window:
-![Screenshot from 2022-04-09 16-21-53](https://user-images.githubusercontent.com/35838069/162568799-890f3060-51a7-4b25-962e-bd37c52d720d.png)
 
 <!--
 **tejas12345678/tejas12345678** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
