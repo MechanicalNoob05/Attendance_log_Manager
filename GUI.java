@@ -25,14 +25,14 @@ public class GUI {
 	Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec, filename;
 	JTabbedPane Attendace_Making_Tab, Attendace_Making_Type_Selection_tab;
 	JTextField DEPNAME, DEPND, DEPNS, EntName, RONO;
-	JComboBox<String> cb, cb1;
+	JComboBox<String> monthSelBox;
 	Workbook wb;
 	org.apache.poi.ss.usermodel.Sheet sh;
 	FileInputStream fis;
 	FileOutputStream fos;
 	Row row;
 	Cell c1, wCell;
-	int i = 1, no_of_row = 0, update,Sheet_index,no_of_sheets;
+	int i = 1, no_of_row = 0, update,Sheet_index,no_of_sheets,Selected_month;
 	JFileChooser Openfile;
 	String fileAddress, fileName;
 	String Months[]={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
@@ -87,8 +87,9 @@ public class GUI {
 		Date = new JLabel("Month:");
 		Date.setBounds(400, 50, 80, 25);
 		
-		JComboBox<String> Month = new JComboBox<String>(Months);
-		Month.setBounds(500, 50, 165, 25);
+		monthSelBox = new JComboBox<String>(Months);
+		monthSelBox.setBounds(500, 50, 165, 25);
+		
 
 		N = new JLabel();
 		N.setBounds(60, 40, 165, 25);
@@ -101,7 +102,7 @@ public class GUI {
 		Present.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					Excel_Data_Writing(1,1,i);
+					Excel_Data_Writing(Selected_month,1,i);
 					N.setText(Cell_to_string(i, 0));
 					i++;					
 					
@@ -120,7 +121,7 @@ public class GUI {
 		Absent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					Excel_Data_Writing(1, 0,i);
+					Excel_Data_Writing(Selected_month, 0,i);
 					N.setText(Cell_to_string(i, 0));
 					i++;
 					
@@ -145,8 +146,15 @@ public class GUI {
 				
 			}
 		});
-		JButton Next = new JButton("Next");
+		JButton Next = new JButton("Month");
 		Next.setBounds(550, 120, 100, 25);
+		Next.addActionListener(new ActionListener (){
+			public void actionPerformed(ActionEvent e){
+				Selected_month=monthSelBox.getSelectedIndex()+1;
+				System.out.println(i);
+			}
+		});
+		
 		JButton Reset = new JButton("Reset");
 		Reset.setBounds(10, 200, 100, 25);
 		Reset.addActionListener(new ActionListener() {
@@ -179,7 +187,7 @@ public class GUI {
 		
 		Serially_Attendace_marking.add(N);
 		Serially_Attendace_marking.add(R);
-		Serially_Attendace_marking.add(Month);
+		Serially_Attendace_marking.add(monthSelBox);
 		
 		Serially_Attendace_marking.add(Present);
 		Serially_Attendace_marking.add(Absent);
@@ -539,7 +547,7 @@ public class GUI {
 			N.setText("completed");
 		}
 		else{
-		c1 = row.getCell(month);
+		c1 = row.getCell(month);	
 		update = (int) c1.getNumericCellValue();
 		c1.setCellValue(update + act);
 		fos = new FileOutputStream(fileName);
@@ -548,8 +556,10 @@ public class GUI {
 		fos.close();
 		
 		System.out.println("Done");
+		
 		}
 	}
+	
 	
 	public String Cell_to_string(int Row_no, int Cell_no) throws EncryptedDocumentException, IOException {
 		fis = new FileInputStream(fileName);
