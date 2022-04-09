@@ -261,44 +261,26 @@ public class GUI {
 			}
 		});
 		boolean result[]=new boolean[table.getRowCount()];
+		
+		
 		sub.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				for(int level =0;level<table.getRowCount();level++){
-					if(table.getValueAt(level, 2)==null){
-						model.setValueAt(false, level, 2);
+				for(int m = 0;m<no_of_row;m++){
+					if(model.getValueAt(m, 2) == null){
+						model.setValueAt(false, m, 2);
 					}
+					result[m]=(boolean) model.getValueAt(m, 2);
 				}
-				for(int m=0;m<table.getRowCount();m++){
-					boolean res= (boolean) table.getValueAt(m, 2);
-					result[m]=res;
-				}
-				for(int sel=0;sel<table.getRowCount();sel++){
-					if(result[sel] == true){
+				for(int m = 0;m<no_of_row;m++){
+					if(result[m]==true){
 						try {
-							Excel_Data_Writing(1, 1,sel);
-							//sel++;
-						} catch (EncryptedDocumentException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						} catch (IOException e1) {
+							Excel_Data_Writing(Selected_month, 1, m+1);
+						} catch (EncryptedDocumentException | IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 					}
-					else{
-						try {
-							Excel_Data_Writing(1, 0,sel);
-							//i++;
-						} catch (EncryptedDocumentException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-					}
-					
-				}
+				}	
 			}
 		});
 		
