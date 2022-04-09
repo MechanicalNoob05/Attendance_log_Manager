@@ -36,6 +36,8 @@ public class GUI {
 	JFileChooser Openfile;
 	String fileAddress, fileName;
 	String Months[]={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+	boolean changes[];
+	
 	
 	public static void main(String[] args) throws EncryptedDocumentException, IOException {
 		new GUI();
@@ -63,7 +65,7 @@ public class GUI {
 		Month_wise_view_window = new JFrame("Monthly_display_box");
 		Month_wise_view_window.setSize(210, 210);
 		Reset_confirm_window = new JFrame("Confirmation");
-		Reset_confirm_window.setSize(500, 200);
+		Reset_confirm_window.setSize(420, 100);
 	}
 
 	public void tabbedPane() {
@@ -102,6 +104,7 @@ public class GUI {
 		Present.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					
 					Excel_Data_Writing(Selected_month,1,i);
 					N.setText(Cell_to_string(i, 0));
 					i++;					
@@ -121,6 +124,7 @@ public class GUI {
 		Absent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					
 					Excel_Data_Writing(Selected_month, 0,i);
 					N.setText(Cell_to_string(i, 0));
 					i++;
@@ -204,9 +208,15 @@ public class GUI {
 		JLabel Reset_confirm_Label = new JLabel("Are you sure You want to Reset all Marked Attendance ?");
 		Reset_confirm_Label.setBounds(10, 20, 200, 25);
 		JButton Yes = new JButton("Yes");
+		Yes.setBounds(100, 80, 80, 25);
+		Yes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		JButton No = new JButton("No");
-		Yes.setBounds(30, 80, 80, 25);
 		No.setBounds(100, 60, 80, 25);
+		
 		Reset_confirm_window_panel.add(Reset_confirm_Label);
 		Reset_confirm_window_panel.add(Yes);
 		Reset_confirm_window_panel.add(No);
@@ -249,7 +259,6 @@ public class GUI {
 		JTable table = new JTable(model);
 		JButton sub = new JButton("Submit");
 		sub.setBounds(200, 200, 100, 25);
-
 
 		JRadioButton Present_type_marking = new JRadioButton("Select All");
 		Present_type_marking.setBounds(150, 20, 100, 30);
@@ -525,20 +534,25 @@ public class GUI {
 		sh = wb.getSheetAt(Sheet_index);
 		no_of_row = sh.getLastRowNum();
 		row = sh.getRow(lane);
-		if(row == null){
-			N.setText("completed");
+		if(row != null){
+			if(act==1){
+				System.out.println("true");
+			}
+			else{
+				System.out.println("false");
+			}
+			c1 = row.getCell(month);	
+			update = (int) c1.getNumericCellValue();
+			c1.setCellValue(update + act);
+			fos = new FileOutputStream(fileName);
+			wb.write(fos);
+			fos.flush();
+			fos.close();
+			System.out.println("Done");
+			
 		}
 		else{
-		c1 = row.getCell(month);	
-		update = (int) c1.getNumericCellValue();
-		c1.setCellValue(update + act);
-		fos = new FileOutputStream(fileName);
-		wb.write(fos);
-		fos.flush();
-		fos.close();
-		
-		System.out.println("Done");
-		
+			N.setText("completed");
 		}
 	}
 	
