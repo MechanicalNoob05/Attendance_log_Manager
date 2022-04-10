@@ -57,7 +57,7 @@ public class GUI {
 	}
 
 	public void createWindow() {
-		Main_window = new JFrame("Check_box_marking");
+		Main_window = new JFrame("Attendance Marking");
 		Main_window.setSize(800, 600);
 		Main_window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame = new JFrame("Confirmation");
@@ -299,7 +299,9 @@ public class GUI {
 							e1.printStackTrace();
 						}
 					}
-				}	
+				}
+				frame.setVisible(false);
+					
 			}
 		});
 		

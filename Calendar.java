@@ -29,7 +29,7 @@ public class Calendar{
         frmMain.setSize(330, 375); //Set size to 400x400 pixels
         pane = frmMain.getContentPane(); //Get content pane
         pane.setLayout(null); //Apply null layout
-        frmMain.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Close when X is clicked
+        //frmMain.setDefaultCloseOperation(frmMain.setVisible(false)); //Close when X is clicked
         
         //Create controls
         lblMonth = new JLabel ("January");
@@ -139,7 +139,7 @@ public class Calendar{
         
         //Draw calendar
         for (int i=1; i<=nod; i++){
-            int row = new Integer((i+som-2)/7);
+            int row = ((i+som-2)/7);
             int column  =  (i+som-2)%7;
             mtblCalendar.setValueAt(i, row, column);
         }
