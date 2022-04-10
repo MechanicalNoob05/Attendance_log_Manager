@@ -16,7 +16,7 @@ public class Calendar{
     static JPanel pnlCalendar;
     static int realYear, realMonth, realDay, currentYear, currentMonth;
     
-    public static void main (String args[]){
+    public void calender(){
         //Look and feel
         try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
         catch (ClassNotFoundException e) {}

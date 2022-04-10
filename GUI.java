@@ -21,7 +21,7 @@ public class GUI {
 	JFrame Reset_confirm_window;
 	JPanel Serially_Attendace_marking, panel1, panel2, Documentation_panel, Selective_Attendace_marking_panel, ADSnames,
 	HIS, Reset_confirm_window_panel;
-	JLabel name, Roll, Date, CHDEP, CHDIV, CHNO, tab4, Month, N, R, Roll1, PArb, ANo, SELDEP, SELDIV, SELNS, month1, month2,
+	JLabel name, Roll, Date, CHDEP, CHDIV, CHNO, tab4, Month, N, R, Roll1, PArb, ANo, SELECT_MONTH, SELDIV, SELNS, month1, month2,
 	Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec, filename;
 	JTabbedPane Attendace_Making_Tab, Attendace_Making_Type_Selection_tab;
 	JTextField DEPNAME, DEPND, DEPNS, EntName, RONO;
@@ -37,6 +37,7 @@ public class GUI {
 	String fileAddress, fileName;
 	String Months[]={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
 	boolean changes[];
+	Calendar Calender = new Calendar();
 	
 	
 	public static void main(String[] args) throws EncryptedDocumentException, IOException {
@@ -47,7 +48,6 @@ public class GUI {
 		createWindow();
 		tabbedPane();
 		Marking_Attendance_panel();
-		Select_department_panel();
 		View_Monthly_panel();
 		Help_Panel();
 		Main_window.setVisible(true);
@@ -57,7 +57,7 @@ public class GUI {
 	}
 
 	public void createWindow() {
-		Main_window = new JFrame("Test");
+		Main_window = new JFrame("Check_box_marking");
 		Main_window.setSize(800, 600);
 		Main_window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame = new JFrame("Confirmation");
@@ -150,21 +150,30 @@ public class GUI {
 				
 			}
 		});
-		JButton Next = new JButton("Month");
-		Next.setBounds(550, 120, 100, 25);
-		Next.addActionListener(new ActionListener (){
+		JButton Month = new JButton("Month");
+		Month.setBounds(550, 120, 100, 25);
+		Month.addActionListener(new ActionListener (){
 			public void actionPerformed(ActionEvent e){
 				Selected_month=monthSelBox.getSelectedIndex()+1;
 				System.out.println(i);
 			}
 		});
-		
+		JButton viewCalender = new JButton("Calender");
+		viewCalender.setBounds(440,120,100,25);
+		viewCalender.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Calender.calender();
+				
+			}
+		});
+
 		JButton Reset = new JButton("Reset");
 		Reset.setBounds(10, 200, 100, 25);
 		Reset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Reset_confirm_window_panel();
 				Reset_confirm_window.setVisible(true);
+				Calender.calender();
 				
 			}
 		});
@@ -173,12 +182,11 @@ public class GUI {
 		Generate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					Test();
+					Check_box_marking();
 				} catch (EncryptedDocumentException e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				
@@ -196,7 +204,8 @@ public class GUI {
 		Serially_Attendace_marking.add(Present);
 		Serially_Attendace_marking.add(Absent);
 		Serially_Attendace_marking.add(loadButton);
-		Serially_Attendace_marking.add(Next);
+		Serially_Attendace_marking.add(Month);
+		Serially_Attendace_marking.add(viewCalender);
 		Serially_Attendace_marking.add(Reset);
 		Serially_Attendace_marking.add(Generate);
 		
@@ -222,9 +231,10 @@ public class GUI {
 		Reset_confirm_window_panel.add(No);
 		Reset_confirm_window.add(Reset_confirm_window_panel);
 	}
+	
 
 	
-	public void Test() throws EncryptedDocumentException, IOException{
+	public void Check_box_marking() throws EncryptedDocumentException, IOException{
 
 		JFrame frame = new JFrame();
         JPanel panel = new JPanel();
@@ -285,7 +295,7 @@ public class GUI {
 						try {
 							Excel_Data_Writing(Selected_month, 1, m+1);
 						} catch (EncryptedDocumentException | IOException e1) {
-							// TODO Auto-generated catch block
+						
 							e1.printStackTrace();
 						}
 					}
@@ -305,37 +315,6 @@ public class GUI {
       	frame.setVisible(true);
 	}
 	
-	public void Select_department_panel() {
-		panel1 = new JPanel();
-		panel1.setLayout(null);
-		
-		SELDEP = new JLabel("Select Department Name: ");
-		SELDEP.setBounds(10, 20, 200, 30);
-		panel1.add(SELDEP);
-		DEPNAME = new JTextField("");
-		DEPNAME.setBounds(210, 20, 250, 30);
-		panel1.add(DEPNAME);
-		
-		SELDIV = new JLabel("Select Number of Division: ");
-		SELDIV.setBounds(10, 60, 200, 30);
-		panel1.add(SELDIV);
-		DEPND = new JTextField("");
-		DEPND.setBounds(210, 60, 250, 30);
-		panel1.add(DEPND);
-		
-		SELNS = new JLabel("Select Number of Student: ");
-		SELNS.setBounds(10, 100, 200, 30);
-		panel1.add(SELNS);
-		DEPNS = new JTextField("");
-		DEPNS.setBounds(210, 100, 250, 30);
-		panel1.add(DEPNS);
-		
-		JButton ADS = new JButton("Add Student");
-		ADS.setBounds(210, 140, 140, 30);
-		panel1.add(ADS);
-		
-		Attendace_Making_Tab.add("Add Department", panel1);
-	}
 	
 	public void Adding_student_panel() {
 		ADSnames = new JPanel();
@@ -375,10 +354,9 @@ public class GUI {
 					Monthly_display_box();
 					Month_update(input);
 				} catch (EncryptedDocumentException e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				Month_wise_view_window.setVisible(true);
@@ -575,6 +553,7 @@ public class GUI {
 			fileAddress = chooser.getDirectory();
 		}
 	}
+	
 	
 
 }
