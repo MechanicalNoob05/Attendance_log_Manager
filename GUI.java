@@ -40,7 +40,7 @@ public class GUI {
 	Calendar Calender = new Calendar();
 	
 	
-	public static void main(String[] args) throws EncryptedDocumentException, IOException {
+	public static void main(String[] args) throws Exception, EncryptedDocumentException, IOException {
 		new GUI();
 	}
 
@@ -173,7 +173,7 @@ public class GUI {
 			public void actionPerformed(ActionEvent e) {
 				Reset_confirm_window_panel();
 				Reset_confirm_window.setVisible(true);
-				Calender.calender();
+				
 				
 			}
 		});
@@ -220,7 +220,13 @@ public class GUI {
 		Yes.setBounds(100, 80, 80, 25);
 		Yes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				try {
+					reset();
+				} catch (EncryptedDocumentException | IOException e1) {
+					
+					e1.printStackTrace();
+				}
+				Reset_confirm_window.setVisible(false);
 			}
 		});
 		JButton No = new JButton("No");
@@ -554,6 +560,30 @@ public class GUI {
 			fileName = chooser.getFile();
 			fileAddress = chooser.getDirectory();
 		}
+	}
+	public void reset() throws EncryptedDocumentException, IOException{
+		fis = new FileInputStream(fileName);
+		wb = WorkbookFactory.create(fis);
+		sh = wb.getSheetAt(Sheet_index);
+		for(int m =1;m<=12;m++){
+			for(int n=1;n<=sh.getLastRowNum();n++){
+				row = sh.getRow(n);
+				c1 = row.getCell(m);
+				if(c1 == null){
+					c1 = row.createCell(m);
+					c1.setCellValue(0);
+				}
+				else{
+					c1.setCellValue(0);
+				}
+			}
+		}
+		fos = new FileOutputStream(fileName);
+		wb.write(fos);
+		fos.flush();
+		fos.close();
+
+
 	}
 	
 	
