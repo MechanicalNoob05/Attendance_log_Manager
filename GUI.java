@@ -32,7 +32,8 @@ public class GUI {
 	FileOutputStream fos;
 	Row row;
 	Cell c1, wCell;
-	int i = 1, no_of_row = 0, update,Sheet_index,no_of_sheets,Selected_month;
+	int i = 1, no_of_row = 0, Sheet_index,no_of_sheets,Selected_month;
+	int update;
 	JFileChooser Openfile;
 	String fileAddress, fileName;
 	String Months[]={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
@@ -571,7 +572,7 @@ public class GUI {
 				c1 = row.getCell(m);
 				if(c1 == null){
 					c1 = row.createCell(m);
-					c1.setCellValue(0);
+					c1.setCellValue(0);;
 				}
 				else{
 					c1.setCellValue(0);
@@ -582,6 +583,7 @@ public class GUI {
 		wb.write(fos);
 		fos.flush();
 		fos.close();
+		i=1;
 
 
 	}
