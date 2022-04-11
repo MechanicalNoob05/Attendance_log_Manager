@@ -1,0 +1,14 @@
+HOW CAN WE HELP YOU?
+This is a simple and easy to understand software made to ease someone’s hard work specifically for our 
+faculties in this pandemic situation for the daily task they perform regarding our “ATTENDANCE”
+So, the application is basically the advance version of our previous made project which we named as “ATTENDANCE LOG MANAGER” 
+A small synopsis of the previous version: -
+We made the application using the friendly and simple language JAVA which had the coded value of the information about the students of the particular class or department. The faculty should mark attendance accordingly. 
+
+OUR CURRENT PROJECT: -
+So, in this particular version we removed all the hard coded values i.e. the Names and Roll numbers of students and replaced that with Excel sheets. 
+1.	At the very start when the program is being run, we see Marking Attendance section. On this page we can see few buttons such as Name of Student, Roll Number, Month, Calendar, Load Button, Reset button etc. The load button opens the files present in your particular device and the faculty can select the excel sheet to mark the attendance in it. After selecting the file, we can select the particular month from the program and proceed with the attendance. The attendance hence gets added in the selected excel sheet in increasing order of number format. There is a reset button provided to reset all the entries given by the user.
+2.	The next page is named as ‘View History’. This particular tab provides information about a particular student’s attendance of every month by providing their roll numbers.  This can also be used to find out if that particular student is in defaulter list or not.
+
+
+

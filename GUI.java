@@ -10,8 +10,10 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import java.awt.FileDialog;
 import java.awt.event.*;
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 
 public class GUI {
@@ -21,8 +23,9 @@ public class GUI {
 	JFrame Reset_confirm_window;
 	JPanel Serially_Attendace_marking, panel1, panel2, Documentation_panel, Selective_Attendace_marking_panel, ADSnames,
 	HIS, Reset_confirm_window_panel;
-	JLabel name, Roll, Date, CHDEP, CHDIV, CHNO, tab4, Month, N, R, Roll1, PArb, ANo, SELECT_MONTH, SELDIV, SELNS, month1, month2,
+	JLabel name, Roll, Date, CHDEP, CHDIV, CHNO, Month, N, R, Roll1, PArb, ANo, SELECT_MONTH, SELDIV, SELNS, month1, month2,
 	Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec, filename;
+	JTextArea tab4;
 	JTabbedPane Attendace_Making_Tab, Attendace_Making_Type_Selection_tab;
 	JTextField DEPNAME, DEPND, DEPNS, EntName, RONO;
 	JComboBox<String> monthSelBox;
@@ -59,7 +62,7 @@ public class GUI {
 
 	public void createWindow() {
 		Main_window = new JFrame("Attendance Marking");
-		Main_window.setSize(800, 600);
+		Main_window.setSize(790, 500);
 		Main_window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame = new JFrame("Confirmation");
 		frame.setSize(400, 400);
@@ -83,25 +86,25 @@ public class GUI {
 		filename.setBounds(10, 20, 150, 25);
 		
 		name = new JLabel("Name:");
-		name.setBounds(10, 40, 80, 25);
+		name.setBounds(10,80, 80, 25);
 		
 		Roll = new JLabel("Roll no.: ");
-		Roll.setBounds(10, 80, 80, 25);
+		Roll.setBounds(10, 130, 80, 25);
 		Date = new JLabel("Month:");
-		Date.setBounds(400, 50, 80, 25);
+		Date.setBounds(510, 80, 80, 25);
 		
 		monthSelBox = new JComboBox<String>(Months);
-		monthSelBox.setBounds(500, 50, 165, 25);
+		monthSelBox.setBounds(580, 80, 165, 25);
 		
 
 		N = new JLabel();
-		N.setBounds(60, 40, 165, 25);
+		N.setBounds(60, 80, 165, 25);
 		R = new JLabel();
-		R.setBounds(65, 80, 165, 25);
+		R.setBounds(65, 130, 165, 25);
 		
 		// Setting up Buttons and their Actions
 		JButton Present = new JButton("Present");
-		Present.setBounds(10, 120, 100, 25);
+		Present.setBounds(10, 220, 100, 25);
 		Present.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -121,7 +124,7 @@ public class GUI {
 		});
 
 		JButton Absent = new JButton("Absent");
-		Absent.setBounds(125, 120, 100, 25);
+		Absent.setBounds(130, 220, 100, 25);
 		Absent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -143,7 +146,7 @@ public class GUI {
 		});
 		
 		JButton loadButton = new JButton("Load");
-		loadButton.setBounds(300, 20, 165, 25);
+		loadButton.setBounds(580, 20, 165, 25);
 		loadButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				File_Opening();
@@ -151,8 +154,8 @@ public class GUI {
 				
 			}
 		});
-		JButton Month = new JButton("Month");
-		Month.setBounds(550, 120, 100, 25);
+		JButton Month = new JButton("Select");
+		Month.setBounds(650, 300, 100, 25);
 		Month.addActionListener(new ActionListener (){
 			public void actionPerformed(ActionEvent e){
 				Selected_month=monthSelBox.getSelectedIndex()+1;
@@ -160,7 +163,7 @@ public class GUI {
 			}
 		});
 		JButton viewCalender = new JButton("Calender");
-		viewCalender.setBounds(440,120,100,25);
+		viewCalender.setBounds(540,300,100,25);
 		viewCalender.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Calender.calender();
@@ -169,7 +172,7 @@ public class GUI {
 		});
 
 		JButton Reset = new JButton("Reset");
-		Reset.setBounds(10, 200, 100, 25);
+		Reset.setBounds(10, 400, 100, 25);
 		Reset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Reset_confirm_window_panel();
@@ -179,7 +182,7 @@ public class GUI {
 			}
 		});
 		JButton Generate = new JButton("Selective");
-		Generate.setBounds(550, 200, 100, 25);
+		Generate.setBounds(650, 400, 100, 25);
 		Generate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -346,12 +349,12 @@ public class GUI {
 		panel2.setLayout(null);
 		
 		CHNO = new JLabel("Enter Student Roll no.: ");
-		CHNO.setBounds(10, 40, 200, 30);
+		CHNO.setBounds(20, 40, 200, 30);
 		panel2.add(CHNO);
 		
 		
 		RONO = new JTextField();
-		RONO.setBounds(180, 40, 50, 30);
+		RONO.setBounds(200, 40, 50, 30);
 		panel2.add(RONO);
 		
 		JButton View = new JButton("View");
@@ -440,11 +443,23 @@ public class GUI {
 		Month_wise_view_window.add(HIS);
 	}
 	
-	public void Help_Panel() {
+	public void Help_Panel() throws IOException {
 		Documentation_panel = new JPanel();
 		Documentation_panel.setLayout(null);
-		tab4 = new JLabel("How to use:");
-		tab4.setBounds(10, 60, 80, 25);
+		tab4 = new JTextArea();
+		tab4.setBounds(10, 10, 760, 800);
+		String temp = "Help.txt";
+		try{
+		BufferedReader br = new BufferedReader(new FileReader(temp));
+		tab4.setText("");
+		String line = null;
+		while((line = br.readLine()) != null){
+			tab4.append(line+"\n");
+		}
+		br.close();
+		}catch(Exception e){
+
+		}
 		Documentation_panel.add(tab4);
 		Attendace_Making_Tab.add("Help", Documentation_panel);
 	}
