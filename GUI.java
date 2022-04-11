@@ -583,7 +583,7 @@ public class GUI {
 		wb.write(fos);
 		fos.flush();
 		fos.close();
-		i=1;
+		
 
 
 	}
