@@ -235,7 +235,11 @@ public class GUI {
 		});
 		JButton No = new JButton("No");
 		No.setBounds(100, 60, 80, 25);
-		
+		No.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Reset_confirm_window.setVisible(false);
+			}
+		});
 		Reset_confirm_window_panel.add(Reset_confirm_Label);
 		Reset_confirm_window_panel.add(Yes);
 		Reset_confirm_window_panel.add(No);
