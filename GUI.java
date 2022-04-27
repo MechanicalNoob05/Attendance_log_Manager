@@ -100,7 +100,7 @@ public class GUI {
 		N = new JLabel();
 		N.setBounds(60, 80, 165, 25);
 		R = new JLabel();
-		R.setBounds(65, 130, 165, 25);
+		R.setBounds(70, 130, 165, 25);
 		
 		// Setting up Buttons and their Actions
 		JButton Present = new JButton("Present");
@@ -108,10 +108,10 @@ public class GUI {
 		Present.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					
 					Excel_Data_Writing(Selected_month,1,i);
 					N.setText(Cell_to_string(i, 0));
-					i++;					
+					R.setText(Integer.toString(i-1));
+					//i++;					
 					
 				} catch (EncryptedDocumentException e1) {
 					e1.printStackTrace();
@@ -131,7 +131,8 @@ public class GUI {
 					
 					Excel_Data_Writing(Selected_month, 0,i);
 					N.setText(Cell_to_string(i, 0));
-					i++;
+					R.setText(Integer.toString(i-1));
+					//i++;
 					
 				} catch (EncryptedDocumentException e1) {
 					
@@ -155,7 +156,7 @@ public class GUI {
 			}
 		});
 		JButton Month = new JButton("Select");
-		Month.setBounds(650, 300, 100, 25);
+		Month.setBounds(650, 220, 100, 25);
 		Month.addActionListener(new ActionListener (){
 			public void actionPerformed(ActionEvent e){
 				Selected_month=monthSelBox.getSelectedIndex()+1;
@@ -163,7 +164,7 @@ public class GUI {
 			}
 		});
 		JButton viewCalender = new JButton("Calender");
-		viewCalender.setBounds(540,300,100,25);
+		viewCalender.setBounds(540,220,100,25);
 		viewCalender.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Calender.calender();
@@ -172,7 +173,7 @@ public class GUI {
 		});
 
 		JButton Reset = new JButton("Reset");
-		Reset.setBounds(10, 400, 100, 25);
+		Reset.setBounds(250, 400, 100, 25);
 		Reset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Reset_confirm_window_panel();
@@ -182,7 +183,7 @@ public class GUI {
 			}
 		});
 		JButton Generate = new JButton("Selective");
-		Generate.setBounds(650, 400, 100, 25);
+		Generate.setBounds(370, 400, 100, 25);
 		Generate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -558,8 +559,12 @@ public class GUI {
 			
 		}
 		else{
-			N.setText("completed");
+			N.setText("Completed !");
 		}
+		if(i<no_of_row){
+			i++;
+		}
+		
 	}
 	
 	
