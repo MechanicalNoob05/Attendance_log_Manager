@@ -12,6 +12,7 @@ import java.awt.FileDialog;
 import java.awt.event.*;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -152,6 +153,17 @@ public class GUI {
 			public void actionPerformed(ActionEvent e) {
 				File_Opening();
 				filename.setText(fileName);
+				System.out.println(i);
+				System.out.println(Selected_month);
+				try {
+					fis = new FileInputStream(fileName);
+					wb = WorkbookFactory.create(fis);
+					sh = wb.getSheetAt(Sheet_index);
+					no_of_row = sh.getLastRowNum();
+				} catch (EncryptedDocumentException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				
 			}
 		});
@@ -160,7 +172,7 @@ public class GUI {
 		Month.addActionListener(new ActionListener (){
 			public void actionPerformed(ActionEvent e){
 				Selected_month=monthSelBox.getSelectedIndex()+1;
-				System.out.println(i);
+				System.out.println(Selected_month);
 			}
 		});
 		JButton viewCalender = new JButton("Calender");
