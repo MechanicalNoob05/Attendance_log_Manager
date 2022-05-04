@@ -39,7 +39,7 @@ public class GUI {
 	int update;
 	JFileChooser Openfile;
 	String fileAddress, fileName;
-	String Months[]={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+	String Months[]={"January","February","March","April","May","June","July","August","September","October","November","December"};
 	boolean changes[];
 	Calendar Calender = new Calendar();
 	
